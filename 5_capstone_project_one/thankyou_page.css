@@ -1,0 +1,23 @@
+body{
+    background: #211c35;
+    border-top-width: 0px;
+    border-bottom-width: 30px;
+    border-left-width: 30px;
+    border-right-width: 30px;
+    border-color: #53ecdf;
+    border-style: solid;
+    margin: 0px;
+
+    color: white;
+    text-align: center;
+
+    font-family: 'Literata', serif;
+}
+
+h1{
+    font-size: 20px;
+}
+
+h2{
+    font-size: 15px;
+}

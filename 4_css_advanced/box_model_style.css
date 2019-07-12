@@ -1,0 +1,13 @@
+#one {
+    border: .5em solid violet;
+    width: 10%;
+    margin: 10px 20px 30px 40px;
+    text-align: right;
+}
+
+#two{
+    border: 2px dotted burlywood;
+    text-align: center;
+    padding: 30px;
+    width: 10%;
+}
