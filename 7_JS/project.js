@@ -11,7 +11,6 @@ if ((firstName[0] !== lastName[0]) ||
     (height < 170) ||
     (pet[pet.length - 1] !== "y")) {
     console.log("You are not the spy, go away!");
-}
-else {
+} else {
     console.log("Hello there spy, the secret message is: BananaBread");
 }
