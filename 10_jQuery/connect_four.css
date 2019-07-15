@@ -1,0 +1,23 @@
+.empty-cell {
+    height: 100px;
+    width: 100px;
+    border-radius: 100px;
+    background-color: gray;
+    border: 0px solid gray;
+}
+
+.isBlue:disabled {
+    background-color: mediumblue;
+}
+
+.isRed:disabled {
+    background-color: crimson;
+}
+
+#title {
+    text-align: center;
+}
+
+#players {
+    text-align: center;
+}
