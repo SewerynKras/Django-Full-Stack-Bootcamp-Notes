@@ -11,3 +11,7 @@ def index(request):
 def nested(request):
     context = {"insert_me": "Ah welcome from views.py"}
     return render(request, "first_app/index.html", context=context)
+
+
+def image(request):
+    return render(request, "first_app/pic.html")
