@@ -9,4 +9,5 @@ def index(request):
 
 
 def nested(request):
-    return HttpResponse("<h2>There hello!<h2>")
+    context = {"insert_me": "Ah welcome from views.py"}
+    return render(request, "first_app/index.html", context=context)
