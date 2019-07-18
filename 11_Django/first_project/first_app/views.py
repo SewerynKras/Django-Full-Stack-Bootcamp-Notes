@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-
+from first_app.models import Webpage
 # Create your views here.
 
 
@@ -15,3 +15,9 @@ def nested(request):
 
 def image(request):
     return render(request, "first_app/pic.html")
+
+
+def webpages(request):
+    webpages = Webpage.objects.order_by("name")
+    context = {"webpages": webpages}
+    return render(request, "first_app/webpages.html", context=context)

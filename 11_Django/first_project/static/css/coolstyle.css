@@ -1,3 +1,9 @@
 h1 {
-    color: red;
+    color: blue;
+}
+
+table,
+td,
+tr {
+    border: 2px solid black;
 }
