@@ -21,3 +21,10 @@ use `render(request, path_to_template.html, {"some_name":"some message"})`
 ## Static files
 
 Static files are files that should never change (images, css, scripts etc) and can be loaded into html by using `{% load staticfiles %}`. To use a static file inside html you should use `"{% static "filename.png" %}"`. Static files should be stored in a separate directory and that dir should be added to projectname/settings.py
+
+## Models
+
+Models are OOP versions of SQL database elements. They can be defined in appname/models.py and registered using appname/admin.py. However to apply these changes you must migrate the database using\
+`$ python manage.py migrate`\
+`$ python manage.py makemigrations "appname"`\
+`$ python manage.py migrate`
