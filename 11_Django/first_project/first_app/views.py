@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from first_app.models import Webpage
-from first_app.forms import BasicForm
+from first_app.models import Webpage, User
+from first_app.forms import NewUserForm
 # Create your views here.
 
 
@@ -25,15 +25,21 @@ def webpages(request):
 
 
 def form(request):
-    context = {"form": BasicForm()}
+    context = {"form": NewUserForm()}
 
     if request.method == "POST":
-        form = BasicForm(request.POST)
+        form = NewUserForm(request.POST)
 
         if form.is_valid():
-            print("Validation success!")
-            print("NAME: " + form.cleaned_data['name'])
-            print("EMAIL: " + form.cleaned_data['email'])
-            print("TEXT: " + form.cleaned_data['text'])
+            # add the new user to the list
+            form.save(commit=True)
+            # return him to the users list
+            return users(request)
 
     return render(request, "first_app/form_page.html", context=context)
+
+
+def users(request):
+    users_list = User.objects.all()
+    context = {"users_list": users_list}
+    return render(request, "first_app/users.html", context=context)

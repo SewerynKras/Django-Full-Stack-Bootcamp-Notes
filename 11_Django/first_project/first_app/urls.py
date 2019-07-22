@@ -6,4 +6,5 @@ urlpatterns = [
     path("img", views.image),
     path("webpages", views.webpages),
     path("form", views.form),
+    path("users", views.users),
 ]

@@ -28,3 +28,7 @@ Models are OOP versions of SQL database elements. They can be defined in appname
 `$ python manage.py migrate`\
 `$ python manage.py makemigrations "appname"`\
 `$ python manage.py migrate`
+
+## Forms
+
+You can also define forms using python classes. These can be defined in appname/forms.py abd can be loaded into html same way like you'd load any other context using a template.
