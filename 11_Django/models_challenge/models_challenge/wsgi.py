@@ -1,5 +1,5 @@
 """
-WSGI config for templates_challange project.
+WSGI config for models_challenge project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'templates_challange.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'models_challenge.settings')
 
 application = get_wsgi_application()

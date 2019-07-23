@@ -1,6 +1,6 @@
 import os
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "models_challange.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "models_challenge.settings")
 
 import django
 django.setup()
