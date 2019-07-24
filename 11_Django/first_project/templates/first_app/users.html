@@ -1,43 +1,38 @@
 <!doctype html>
-<html lang="en">
+
+<html>
 
 <head>
     <title>List of all registered users</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
-<body>
-
-
-    <div class="container">
-        <h1>List of all registered users:</h1>
-        {% if users_list %}
-        <table class="table">
-            <thead class='thead-dark'>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for user in users_list %}
-                <tr>
-                    <td>{{ user.name }}</td>
-                    <td>{{ user.email }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        {% else %}
-        <p>No registered users yet!</p>
-        {% endif %}
-    </div>
-</body>
-
 </html>
+
+{% extends 'first_app/base.html' %}
+{% block body_block %}
+
+<div class="container">
+    <h1>List of all registered users:</h1>
+    {% if users_list %}
+    <table class="table">
+        <thead class='thead-dark'>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users_list %}
+            <tr>
+                <td>{{ user.name }}</td>
+                <td>{{ user.email }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No registered users yet!</p>
+    {% endif %}
+</div>
+</body>
+{% endblock %}

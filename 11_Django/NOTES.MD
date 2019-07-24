@@ -32,3 +32,9 @@ Models are OOP versions of SQL database elements. They can be defined in appname
 ## Forms
 
 You can also define forms using python classes. These can be defined in appname/forms.py abd can be loaded into html same way like you'd load any other context using a template.
+
+## Template inheritance (blocks)
+
+To avoid copying the same lines of code to multiple html files (like navbar or loading bootstrap etc) you can just define a single file and call it in other html documents. You can mark everything as reusable in a file using a pair of `{% block block_name %}` and `{% endblock %}`
+(This will mark everything *outside* the blocks)\
+To later use that marked code use `{% extends 'path_to_file' %}'`

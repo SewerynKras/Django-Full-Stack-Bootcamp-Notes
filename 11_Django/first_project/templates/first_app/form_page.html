@@ -1,29 +1,25 @@
 <!doctype html>
-<html lang="en">
+
+<html>
 
 <head>
-    <title>Title</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Register!</title>
 </head>
 
-<body>
-
-    <div class="container">
-        <div class="jumbotron">
-            <form method="POST">
-                {{ form.as_p }}
-                {% csrf_token %}
-                <input type="Submit" class="btn btn-primary" value='Submit!'>
-            </form>
-        </div>
-    </div>
-
-</body>
-
 </html>
+
+{% extends 'first_app/base.html' %}
+{% block body_block %}
+<div class="container">
+    <a href="{% url 'first_app:users' %}">All registered users</a>
+</div>
+<div class="container">
+    <div class="jumbotron">
+        <form method="POST">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <input type="Submit" class="btn btn-primary" value='Submit!'>
+        </form>
+    </div>
+</div>
+{% endblock body_block %}

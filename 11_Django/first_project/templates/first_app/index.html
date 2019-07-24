@@ -1,14 +1,15 @@
 <!doctype html>
-<html lang="en">
+
+<html>
 
 <head>
-    <title>First app</title>
-    <meta charset="utf-8">
+    <title>First app homepage!</title>
 </head>
 
-<body>
-    <h1>This is index.html</h1>
-    {{insert_me}}
-</body>
-
 </html>
+
+{% extends 'first_app/base.html' %}
+{% block body_block %}
+<h1>This is index.html</h1>
+{{insert_me}}
+{% endblock body_block %}
