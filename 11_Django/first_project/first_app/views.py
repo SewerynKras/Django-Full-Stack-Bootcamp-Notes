@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-from first_app.models import Webpage, User
-from first_app.forms import NewUserForm
+from django.http import HttpResponse, HttpResponseRedirect
+from first_app.models import Webpage, ExtendedUser
+from first_app.forms import NewUserForm, ExtendedUserForm
 # Create your views here.
 
 
@@ -25,21 +25,37 @@ def webpages(request):
 
 
 def form(request):
-    context = {"form": NewUserForm()}
+
+    registered = False
 
     if request.method == "POST":
-        form = NewUserForm(request.POST)
+        user_form = NewUserForm(request.POST)
+        extra_form = ExtendedUserForm(request.POST)
 
-        if form.is_valid():
+        if user_form.is_valid() and extra_form.is_valid():
             # add the new user to the list
-            form.save(commit=True)
-            # return him to the users list
-            return users(request)
+            user = user_form.save()
+            user.set_password(user.password)
+            user.save()
+
+            ext_user = extra_form.save(commit=False)
+            ext_user.user = user
+
+            if 'profile_pic' in request.FILES:
+                ext_user.profile_pic = request.FILES['profile_pic']
+
+            ext_user.save()
+
+            registered = True
+
+    context = {"user_form": NewUserForm(),
+               "extra_form": ExtendedUserForm(),
+               "registered": registered}
 
     return render(request, "first_app/form_page.html", context=context)
 
 
 def users(request):
-    users_list = User.objects.all()
+    users_list = ExtendedUser.objects.all()
     context = {"users_list": users_list}
     return render(request, "first_app/users.html", context=context)

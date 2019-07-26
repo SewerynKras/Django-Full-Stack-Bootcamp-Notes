@@ -15,11 +15,21 @@
 </div>
 <div class="container">
     <div class="jumbotron">
-        <form method="POST">
-            {{ form.as_p }}
+
+        {% if registered %}
+
+        <p>You're registerd!</p>
+
+        {% else %}
+
+        <form method="POST" enctype='multipart/form-data'>
+            {{ user_form.as_p }}
+            {{ extra_form.as_p}}
             {% csrf_token %}
             <input type="Submit" class="btn btn-primary" value='Submit!'>
         </form>
+
+        {% endif %}
     </div>
 </div>
 {% endblock body_block %}
