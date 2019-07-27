@@ -36,5 +36,13 @@ You can also define forms using python classes. These can be defined in appname/
 ## Template inheritance (blocks)
 
 To avoid copying the same lines of code to multiple html files (like navbar or loading bootstrap etc) you can just define a single file and call it in other html documents. You can mark everything as reusable in a file using a pair of `{% block block_name %}` and `{% endblock %}`
-(This will mark everything *outside* the blocks)\
+(This will mark everything **outside** the blocks)\
 To later use that marked code use `{% extends 'path_to_file' %}'`
+
+## Users
+
+It's generally not a good idea to overwrite djangos user models with your own. Instead to add more functionality to them you can create custom models with `user = OneToOneField(User)`.
+
+## Logins
+
+Django has pretty sweet built-in support for authentication. When creating a view that should only be access when logged in you can use a decorator `@login_required()`
