@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Listed information</title>
+</head>
+
+</html>
+
+{% extends 'simple_app/base.html' %}
+{% block body_block %}
+
+<div class="jumbotron">
+    <p class="lead">List of all knows schools:</p>
+    <ol>
+        {% for school in schools %}
+        <li><a href="{% url "simple_app:detail" pk=school.id %}">{{ school.name }}</a></li>
+        {% endfor %}
+    </ol>
+</div>
+
+{% endblock body_block %}
