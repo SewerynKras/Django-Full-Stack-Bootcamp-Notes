@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Create a new student</title>
+</head>
+
+</html>
+
+{% extends 'simple_app/base.html' %}
+
+{% block body_block %}
+
+<div class="jumbotron">
+    <h3>
+        {% if not form.instance.pk %}
+        Create a new student
+        {% else %}
+        Edit student info
+        {% endif %}
+    </h3>
+    <form method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" class="btn btn-primary btn-block" value='Submit!'>
+    </form>
+</div>
+
+{% endblock body_block %}
