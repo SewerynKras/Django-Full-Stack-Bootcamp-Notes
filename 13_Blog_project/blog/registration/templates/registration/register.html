@@ -1,0 +1,29 @@
+{% extends 'navbar.html' %}
+
+{% block title %}Register{% endblock title %}
+
+{% block body_block %}
+<div class="container">
+    <div class="jumbotron">
+        {% if errors %}
+        <div class="alert alert-danger" role="alert">
+            Incorrect data provided!
+            {% for error in errors%}
+            <p>{{error}}</p>
+            {% endfor %}
+        </div>
+        {% elif registered %}
+        <div class="alert alert-success" role="alert">
+            Thanks for registering :)
+        </div>
+        {% endif %}
+        <form method="post" enctype='multipart/form-data'>
+            {{basic_user_form.as_p}}
+            {{extended_user_form.as_p}}
+            {% csrf_token %}
+            <input type="submit" class="btn btn-primary" value='Submit!'>
+        </form>
+    </div>
+</div>
+
+{% endblock body_block %}
