@@ -27,12 +27,25 @@
             </li>
         </ul>
         <ul class='nav navbar-nav ml-auto'>
+            {% if user.is_authenticated %}
             <li>
-                <a class='nav-link' href="#">Log in</a>
+                <span class='navbar-text'>
+                    Hello <span class="text-primary">{{ user.username }}</span>
+                </span>
             </li>
             <li>
-                <a class='nav-link' href="#">Register</a>
+                <a class='nav-link' href="#">My profile</a>
             </li>
+            <li>
+                <a class='nav-link' href="{% url 'registration:logout' %}">Logout</a>
+            </li>
+            {% else %}
+            <li>
+                <a class='nav-link' href="{% url 'registration:login' %}">Log in</a>
+            </li>
+            <a class='nav-link' href="{% url 'registration:register' %}">Register</a>
+            </li>
+            {% endif %}
         </ul>
     </nav>
 

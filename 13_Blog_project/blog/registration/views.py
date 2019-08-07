@@ -1,9 +1,10 @@
-from django.views.generic import TemplateView, View
+from django.views.generic import TemplateView, View, DetailView
 from registration import forms
 from django.shortcuts import render, redirect
 from django.conf import settings
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.mixins import LoginRequiredMixin
+from registration import models
 
 
 class RegisterView(TemplateView):
@@ -55,7 +56,6 @@ class RegisterView(TemplateView):
 
 class LoginView(TemplateView):
     template_name = "registration/login.html"
-    context_object_name = 'login_form'
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -83,3 +83,40 @@ class LogoutView(LoginRequiredMixin, View):
     def get(self, request):
         logout(request)
         return redirect("/")
+
+
+class ProfileView(DetailView):
+    template_name = "registration/profile.html"
+    model = models.Author
+    context_object_name = "author"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        selected_author = self.get_object()
+        logged_user = self.request.user
+
+        if selected_author.user == logged_user:
+            context["edit_form"] = forms.EditProfileForm()
+        return context
+
+    def post(self, request, slug):
+        # double check that this is the correct author
+        selected_author = self.get_object()
+        logged_user = self.request.user
+
+        if selected_author.user == logged_user:
+            edit_form = forms.EditProfileForm(request.POST)
+
+            if edit_form.is_valid():
+                if edit_form.username:
+                    logged_user.username = edit_form.username
+                if edit_form.profile_pic:
+                    selected_author.profile_pic = edit_form.profile_pic
+                selected_author.save()
+                #TODO: redirect to new page
+            else:
+                #TODO: return invalid_data like in login
+        
+        else:
+            #TODO: return FORBIDDEN
