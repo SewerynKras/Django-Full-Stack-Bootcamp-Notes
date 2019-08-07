@@ -5,6 +5,7 @@ from django.conf import settings
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.mixins import LoginRequiredMixin
 from registration import models
+from django.http import HttpResponseForbidden
 
 
 class RegisterView(TemplateView):
@@ -109,14 +110,28 @@ class ProfileView(DetailView):
             edit_form = forms.EditProfileForm(request.POST)
 
             if edit_form.is_valid():
-                if edit_form.username:
-                    logged_user.username = edit_form.username
-                if edit_form.profile_pic:
-                    selected_author.profile_pic = edit_form.profile_pic
+                username = edit_form.cleaned_data['username']
+                profile_pic = edit_form.cleaned_data['profile_pic']
+
+                if username:
+                    selected_author.user.username = username
+                if profile_pic:
+                    selected_author.profile_pic = profile_pic
+                if 'profile_pic' in request.FILES:
+                    image = request.FILES['profile_pic']
+                    selected_author.profile_pic = image
+
+                selected_author.user.save()
                 selected_author.save()
-                #TODO: redirect to new page
-            else:
-                #TODO: return invalid_data like in login
-        
-        else:
-            #TODO: return FORBIDDEN
+
+                new_slug = selected_author.slug
+                return redirect("registration:profile", slug=new_slug)
+            else:  # if form is invalid
+                errors = []
+                for message in edit_form.errors.values():
+                    errors.append(message)
+                context = self.get_context_data()
+                context['errors'] = errors
+                return redirect("registration:progile", slug=selected_author.slug, context=context)
+        else:  # if an incorrect user somehow sends a POST to this form
+            return HttpResponseForbidden()

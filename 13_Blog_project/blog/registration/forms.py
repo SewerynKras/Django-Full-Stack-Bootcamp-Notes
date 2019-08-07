@@ -45,5 +45,5 @@ class LoginForm(forms.Form):
 
 
 class EditProfileForm(forms.Form):
-    username = forms.CharField(max_length=32, required=True, validators=[check_duplicate_username])
+    username = forms.CharField(max_length=32, required=False, validators=[check_duplicate_username])
     profile_pic = forms.ImageField(required=False)
