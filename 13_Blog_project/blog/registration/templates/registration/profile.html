@@ -13,6 +13,14 @@
     </div>
     {% if edit_form %}
     <div class="jumbotron">
+        {% if errors %}
+        <div class="alert alert-danger" role="alert">
+            Incorrect data provided!
+            {% for error in errors%}
+            <p>{{error}}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
         <h4>Edit user info</h4>
         <form method="post" enctype='multipart/form-data'>
             {{edit_form.as_p}}

@@ -105,6 +105,7 @@ class ProfileView(DetailView):
         # double check that this is the correct author
         selected_author = self.get_object()
         logged_user = self.request.user
+        self.object = selected_author
 
         if selected_author.user == logged_user:
             edit_form = forms.EditProfileForm(request.POST)
@@ -132,6 +133,7 @@ class ProfileView(DetailView):
                     errors.append(message)
                 context = self.get_context_data()
                 context['errors'] = errors
-                return redirect("registration:progile", slug=selected_author.slug, context=context)
+                # return HttpResponseRedirect(request.build_absolute_uri())
+                return render(request, self.template_name, context=context)
         else:  # if an incorrect user somehow sends a POST to this form
             return HttpResponseForbidden()
