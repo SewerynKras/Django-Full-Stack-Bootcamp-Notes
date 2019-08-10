@@ -1,0 +1,25 @@
+{% extends 'navbar.html' %}
+{% block title %}{{ post.title }}{% endblock title %}
+
+{% block body_block %}
+<div class="container">
+    <form method="post">
+        {% csrf_token %}
+        {% if publish %}
+        <div class="alert alert-success" role="alert">
+            <strong>You're about to publish this post </strong>
+            <input type="submit" value="Confirm" class='btn btn-outline-success'>
+            <a href="{% url 'posts:drafts' %}" class='btn btn-outline-primary'>Cancel</a>
+        </div>
+        {% elif delete %}
+        <div class="alert alert-danger" role="alert">
+            <strong>You're about to delete this post </strong>
+            <input type="submit" value="Confirm" class='btn btn-outline-danger'>
+            <a href="{% url 'posts:drafts' %}" class='btn btn-outline-primary'>Cancel</a>
+        </div>
+        {% endif %}
+    </form>
+    <h4>{{post.title}}</h4>
+    <p>{{post.text|linebreaks}}</p>
+</div>
+{% endblock body_block %}

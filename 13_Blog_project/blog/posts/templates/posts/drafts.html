@@ -1,0 +1,23 @@
+{% extends 'navbar.html' %}
+{% block title %}Drafts{% endblock title %}
+
+{% block body_block %}
+<div class="container">
+
+    <h2>Your unpublished drafts:</h2>
+    {% if posts %}
+    {% for post in posts %}
+    <div class="alert alert-light" role="alert">
+        <span class='draft_name'>{{post.title}}</span>
+        <span class='buttons_on_right'>
+            <a class="btn btn-primary" href="{% url 'posts:edit_draft' slug=post.slug %}">Edit</a>
+            <a class="btn btn-primary" href="{% url 'posts:publish' slug=post.slug %}">Publish</a>
+            <a class="btn btn-danger" href="{% url 'posts:delete' slug=post.slug %}">Delete</a>
+        </span>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p>Nothing to see here, <a href="{% url 'posts:new_post' %}">create a new one!</a></p>
+    {% endif %}
+</div>
+{% endblock body_block%}

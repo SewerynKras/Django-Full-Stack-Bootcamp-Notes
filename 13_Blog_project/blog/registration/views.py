@@ -112,12 +112,9 @@ class ProfileView(DetailView):
 
             if edit_form.is_valid():
                 username = edit_form.cleaned_data['username']
-                profile_pic = edit_form.cleaned_data['profile_pic']
 
                 if username:
                     selected_author.user.username = username
-                if profile_pic:
-                    selected_author.profile_pic = profile_pic
                 if 'profile_pic' in request.FILES:
                     image = request.FILES['profile_pic']
                     selected_author.profile_pic = image
@@ -133,7 +130,6 @@ class ProfileView(DetailView):
                     errors.append(message)
                 context = self.get_context_data()
                 context['errors'] = errors
-                # return HttpResponseRedirect(request.build_absolute_uri())
                 return render(request, self.template_name, context=context)
         else:  # if an incorrect user somehow sends a POST to this form
             return HttpResponseForbidden()
