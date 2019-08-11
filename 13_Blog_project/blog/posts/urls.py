@@ -11,4 +11,5 @@ urlpatterns = [
     path("drafts/<slug>/edit", views.UpdateDraft.as_view(), name='edit_draft'),
     path("drafts/<slug>/publish", views.PublishDraft.as_view(), name='publish'),
     path("drafts/<slug>/delete", views.DeleteDraft.as_view(), name='delete'),
+    path("read/<slug>", views.PostView.as_view(), name='post'),
 ]

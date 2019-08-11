@@ -19,7 +19,55 @@
         </div>
         {% endif %}
     </form>
-    <h4>{{post.title}}</h4>
+    <h1>{{post.title}}</h1>
+    <hr class="my-2">
+    <h6>
+        by
+        <img src={{ post.author.profile_pic.url }} width="40" height="40" alt="" class='rounded-lg'>
+        <a href="{% url 'registration:profile' slug=post.author.slug%}">
+            {{post.author.user.username}}</a>
+        published on <span class='date-style'>{{post.date_published}}</span>
+    </h6>
+    <hr class="my-2">
     <p>{{post.text|linebreaks}}</p>
+    <div class="jumbotron">
+        <h3>
+            Comments(
+            {% if num_comments %}
+            {{ num_comments }}
+            {% else %}
+            0
+            {% endif %}
+            )
+        </h3>
+        {% if comment_form_errors %}
+        <div class="alert alert-danger" role="alert">
+            Incorrect data provided!
+            {% for error in errors%}
+            <p>{{error}}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% if not publish and not delete %}
+        <hr class="my-2">
+        <form method="post" class="comment_form">
+            {{new_comment_form.as_p}}
+            {% csrf_token %}
+            <input type="submit" class="btn btn-primary" value='Publish!'>
+        </form>
+        <ul class='comments_list'>
+            {% for comment in comments %}
+            <li>
+                <img src={{ comment.author.profile_pic.url }} width="40" height="40" alt="" class='rounded-lg'>
+                <a href="{% url 'registration:profile' slug=comment.author.slug%}">
+                    {{comment.author.user.username}}</a>:
+                <span class='comment_text'>
+                    {{comment.text}}
+                </span>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
 </div>
 {% endblock body_block %}

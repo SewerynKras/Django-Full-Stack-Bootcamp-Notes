@@ -31,3 +31,6 @@ class Comment(models.Model):
                                on_delete=models.CASCADE)
     post = models.ForeignKey("posts.Post",
                              on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.text[:100]

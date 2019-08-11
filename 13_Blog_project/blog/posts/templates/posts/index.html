@@ -16,7 +16,7 @@
         <hr class="my-2">
         <p>{{post.text_preview|linebreaks}}</p>
         <p>...</p>
-        <a class="btn btn-outline-secondary" href="#" role="button">Read more</a>
+        <a class="btn btn-outline-secondary" href="{% url 'posts:post' slug=post.slug%}" role="button">Read more</a>
     </div>
     {% endfor %}
 </div>
