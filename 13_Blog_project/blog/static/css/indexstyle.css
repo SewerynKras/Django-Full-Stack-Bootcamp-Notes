@@ -1,0 +1,57 @@
+.post_title {
+    font-family: 'Libre Caslon Display', serif;
+}
+
+.post_text {
+    font-family: 'Abel', sans-serif;
+    font-size: 20px;
+}
+
+.animated_text {
+    animation: colorchange 5s infinite;
+    -webkit-animation: colorchange 5s infinite;
+}
+
+@keyframes colorchange {
+    0% {
+        color: red;
+    }
+
+    25% {
+        color: orange;
+    }
+
+    50% {
+        color: green;
+    }
+
+    75% {
+        color: blue;
+    }
+
+    100% {
+        color: purple;
+    }
+}
+
+@-webkit-keyframes colorchange {
+    0% {
+        color: red;
+    }
+
+    25% {
+        color: orange;
+    }
+
+    50% {
+        color: green;
+    }
+
+    75% {
+        color: blue;
+    }
+
+    100% {
+        color: purple;
+    }
+}

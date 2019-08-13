@@ -1,0 +1,34 @@
+.bold_text {
+    font-weight: bold;
+}
+
+.italic_text {
+    font-style: italic;
+}
+
+.strike_text {
+    text-decoration: line-through;
+}
+
+.clean_text {
+    font-weight: normal;
+    font-style: normal;
+    text-decoration: none;
+    /* color: blue; */
+}
+
+.custom_textarea {
+    height: auto;
+    background-color: white;
+    margin-bottom: 15px;
+}
+
+#fake_title {
+    min-height: 20px;
+    width: 60%;
+}
+
+#fake_text {
+    min-height: 130px;
+    width: 90%;
+}
