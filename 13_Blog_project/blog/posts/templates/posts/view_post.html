@@ -1,25 +1,44 @@
 {% extends 'navbar.html' %}
-{% block title %}{{ post.title }}{% endblock title %}
+{% block title %}Create a new post{% endblock title %}
 
 {% block body_block %}
-<div class="container">
+<div class="jumbotron">
+    {% if creating %}
+    <h1>Create a new post</h1>
+
+    {% elif editing %}
+    <h1>Edit your post</h1>
+
+    {% elif publishing %}
     <form method="post">
         {% csrf_token %}
-        {% if publish %}
         <div class="alert alert-success" role="alert">
             <strong>You're about to publish this post </strong>
             <input type="submit" value="Confirm" class='btn btn-outline-success'>
             <a href="{% url 'posts:drafts' %}" class='btn btn-outline-primary'>Cancel</a>
         </div>
-        {% elif delete %}
+    </form>
+    {% elif deleting %}
+    <form method="post">
+        {% csrf_token %}
         <div class="alert alert-danger" role="alert">
             <strong>You're about to delete this post </strong>
             <input type="submit" value="Confirm" class='btn btn-outline-danger'>
             <a href="{% url 'posts:drafts' %}" class='btn btn-outline-primary'>Cancel</a>
         </div>
-        {% endif %}
     </form>
-    <h1>{{post.title}}</h1>
+    {% endif %}
+    <hr class="my-2">
+    {% if creating or editing %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p}}
+        <div contenteditable="true" class="custom_textarea" id="fake_title">{{post.title}}</div>
+        <div contenteditable="true" class="custom_textarea" id="fake_text">{{post.text|linebreaks}}</div>
+        <input type="submit" class="btn btn-primary" id="save_draft_btn" value='Save as draft'>
+    </form>
+    {% else %}
+    <h1 class='post_title' id="fake_title">{{post.title}}</h1>
     <hr class="my-2">
     <h6>
         by
@@ -29,7 +48,11 @@
         published on <span class='date-style'>{{post.date_published}}</span>
     </h6>
     <hr class="my-2">
-    <p>{{post.text|linebreaks}}</p>
+    <div class='post_text' id="fake_text">
+        {{post.text|linebreaks}}
+    </div>
+    {% endif %}
+    {% if not creating and not publishing and not deleting and not editing %}
     <div class="jumbotron">
         <h3>
             Comments(
@@ -48,7 +71,6 @@
             {% endfor %}
         </div>
         {% endif %}
-        {% if not publish and not delete %}
         <hr class="my-2">
         <form method="post" class="comment_form">
             {{new_comment_form.as_p}}
@@ -67,7 +89,20 @@
             </li>
             {% endfor %}
         </ul>
-        {% endif %}
+    </div>
+    {% endif %}
+</div>
+<div class="toast" data-autohide="false">
+    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close"> <span
+            aria-hidden="true">&times;</span>
+    </button>
+    <div class="toast-body">
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-secondary" id='make_text_bold'> <b>bold</b> </button>
+            <button type="button" class="btn btn-secondary" id='make_text_italic'><I>italic</I></button>
+            <button type="button" class="btn btn-secondary" id='make_text_strike'><strike>strike</strike></button>
+            <button type="button" class="btn btn-secondary" id='make_text_clear'>clear</button>
+        </div>
     </div>
 </div>
-{% endblock body_block %}
+{% endblock body_block%}

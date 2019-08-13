@@ -3,10 +3,10 @@
 
 {% block body_block %}
 <div class="container">
-    <h2>Newest posts:</h2>
+    <h2 class='animated_text display-2'>Newest posts:</h2>
     {% for post in posts %}
     <div class="jumbotron">
-        <h1>{{post.title}}</h1>
+        <h1 class='post_title' id='fake_title'>{{post.title}}</h1>
         <p class="lead">
             by
             <a href="{% url 'registration:profile' slug=post.author.slug%}">
@@ -14,7 +14,7 @@
             published on <span class='date-style'>{{post.date_published}}</span>
         </p>
         <hr class="my-2">
-        <p>{{post.text_preview|linebreaks}}</p>
+        <div class='post_text' id='fake_text'>{{post.text_preview}}</div>
         <p>...</p>
         <a class="btn btn-outline-secondary" href="{% url 'posts:post' slug=post.slug%}" role="button">Read more</a>
     </div>

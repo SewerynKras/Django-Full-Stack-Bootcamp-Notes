@@ -1,7 +1,6 @@
 from django.views.generic import TemplateView, View, DetailView
 from registration import forms
 from django.shortcuts import render, redirect
-from django.conf import settings
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.mixins import LoginRequiredMixin
 from registration import models
@@ -36,7 +35,6 @@ class RegisterView(TemplateView):
 
             if 'profile_pic' in request.FILES:
                 image = request.FILES['profile_pic']
-                #image = image.resize(settings.IMAGE_SIZE)  #FIXME: image is a "InMemoryUploadedFile"
                 ext_user.profile_pic = image
 
             ext_user.save()

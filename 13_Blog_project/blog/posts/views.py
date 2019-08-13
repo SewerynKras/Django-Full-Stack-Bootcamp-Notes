@@ -17,9 +17,14 @@ class IndexView(ListView):
 
 
 class NewPostView(CreateView):
-    template_name = "posts/create_post.html"
+    template_name = "posts/view_post.html"
     model = models.Post
-    fields = ['title', 'text']
+    form_class = forms.PostForm
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['creating'] = True
+        return context
 
     def form_valid(self, form):
         title = form.cleaned_data['title']
@@ -31,7 +36,7 @@ class NewPostView(CreateView):
                            author=author, draft=draft)
 
         post.save()
-        return redirect("/")
+        return redirect("posts:drafts")
 
 
 class DraftView(ListView):
@@ -47,8 +52,13 @@ class DraftView(ListView):
 
 class UpdateDraft(UpdateView):
     model = models.Post
-    template_name = 'posts/edit_post.html'
-    fields = ['title', 'text']
+    template_name = 'posts/view_post.html'
+    form_class = forms.PostForm
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(UpdateDraft, self).get_context_data(*args, **kwargs)
+        context['editing'] = True
+        return context
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.author != self.get_object().author:
@@ -58,7 +68,7 @@ class UpdateDraft(UpdateView):
 
 class PublishDraft(DetailView):
     model = models.Post
-    template_name = "posts/preview_post.html"
+    template_name = "posts/view_post.html"
     context_object_name = "post"
 
     def dispatch(self, request, *args, **kwargs):
@@ -68,7 +78,7 @@ class PublishDraft(DetailView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        context['publish'] = True
+        context['publishing'] = True
         return context
 
     def post(self, request, slug):
@@ -81,7 +91,7 @@ class PublishDraft(DetailView):
 
 class DeleteDraft(DeleteView):
     model = models.Post
-    template_name = "posts/preview_post.html"
+    template_name = "posts/view_post.html"
     context_object_name = "post"
     success_url = "/drafts"
 
@@ -92,13 +102,13 @@ class DeleteDraft(DeleteView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        context['delete'] = True
+        context['deleting'] = True
         return context
 
 
 class PostView(DetailView):
     model = models.Post
-    template_name = "posts/preview_post.html"
+    template_name = "posts/view_post.html"
     context_object_name = "post"
 
     def get_context_data(self, *args, **kwargs):
